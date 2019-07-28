@@ -8,6 +8,12 @@ function setup() {
 createCanvas(400, 400);
 frameRate(10);
 
+// Snake's head position
+// The head should start in the middle of the screen
+
+headX = numOfBlocks/2;
+headY = numOfBlocks/2;
+
 }
 
 function draw() {
