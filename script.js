@@ -8,10 +8,16 @@ var blockSize = 20;
 var speedX = 0;
 var speedY = 0;
 
+// To make our game's snake look like an actual snake we need to attach more blocks to the snake's head.
+// For more detail about the tail's structure, go down to tails.push
 // Initial length of the snake
-var tailLength = 3
-// An array with previous snake head positions
-var tails = []
+var tailLength = 3;
+// Keep track of the snake's previous positions
+var tails = [];
+
+// Track apple's position
+var appleX = 0;
+var appleY = 0;
 
 function setup() {
   createCanvas(400, 400);
@@ -22,6 +28,10 @@ function setup() {
 
   headX = numOfBlocks / 2;
   headY = numOfBlocks / 2;
+
+  // pick random number between 0 and numOfBlocks-1 to set the apple's position
+  appleX = round(random(0, numOfBlocks - 1));
+  appleY = round(random(0, numOfBlocks - 1));
 }
 
 function draw() {
@@ -46,11 +56,24 @@ function draw() {
   if (headY > numOfBlocks) {
     headY = 0;
   }
-  // Keep track of the head's position in the tails array
-  tails.push({x: headX, y: headY})
+  // When the snake's head moves to a new position, we need to add that to the tail's array.
+  tails.push({ x: headX, y: headY });
   // Remove first tail when it's too long
-  while(tails.length > tailLength) {
-    tails.shift()
+  while (tails.length > tailLength) {
+    tails.shift();
+  }
+  // draw all positions in tails array as rectangles
+  for (var i = 0; i < tails.length; i++) {
+    rect(tails[i].x * blockSize, tails[i].y * blockSize, blockSize, blockSize);
+  }
+  // draw the apple
+  fill(255, 0, 0);
+  rect(appleX * blockSize, appleY * blockSize, blockSize, blockSize);
+  // when hitting the apple, we move the apple to another spot, taillength increases, and the score increases by 10.
+  if (headX == appleX && headY == appleY) {
+    appleX = round(random(0, numOfBlocks - 1));
+    appleY = round(random(0, numOfBlocks - 1));
+    tailLength++;
   }
 }
 
