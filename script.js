@@ -19,6 +19,11 @@ var tails = [];
 var appleX = 0;
 var appleY = 0;
 
+// Keep track of the score
+// how many times snake eats apples
+var score = 0
+var highScore = 0
+
 function setup() {
   createCanvas(400, 400);
   frameRate(10);
@@ -74,6 +79,8 @@ function draw() {
     appleX = round(random(0, numOfBlocks - 1));
     appleY = round(random(0, numOfBlocks - 1));
     tailLength++;
+    // When snake eats apple, score should increase by ten.
+    score+=10
   }
   // when the snake is moving or When speed is not 0.
   if (speedX != 0 || speedY != 0) {
@@ -93,9 +100,21 @@ function draw() {
 
         appleX = round(random(0, numOfBlocks - 1));
         appleY = round(random(0, numOfBlocks - 1));
+        // Keep track of all the highest score. Record it.
+        if(score >= highScore) {
+            highScore = score
+          }
+        // When game ends, reset score back to 0.
+        score = 0
       }
     }
   }
+  // draw both score and highScore
+  fill(255)
+  text('score: ' + score, 5, 15)
+  text('hiscore: ' + highScore, 5, 30)
+  text('@lenora.coding', 310, 15)
+  text('@lenora.porter', 310, 30)
 }
 
 // Key Code CheatSheet https://css-tricks.com/snippets/javascript/javascript-keycodes/
