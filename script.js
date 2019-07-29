@@ -4,9 +4,14 @@ var numOfBlocks = 20;
 // The initial size of each block and the initial size of the snake
 var blockSize = 20;
 
-//Snake's head speed
+// Snake's head speed
 var speedX = 0;
 var speedY = 0;
+
+// Initial length of the snake
+var tailLength = 3
+// An array with previous snake head positions
+var tails = []
 
 function setup() {
   createCanvas(400, 400);
@@ -40,6 +45,12 @@ function draw() {
   }
   if (headY > numOfBlocks) {
     headY = 0;
+  }
+  // Keep track of the head's position in the tails array
+  tails.push({x: headX, y: headY})
+  // Remove first tail when it's too long
+  while(tails.length > tailLength) {
+    tails.shift()
   }
 }
 
