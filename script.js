@@ -49,15 +49,19 @@ function draw() {
   headX = headX + speedX;
   headY = headY + speedY;
   // loop back inside the screen (Create restraints for the snake)
+  // If headX is far left, move it to the far right.
   if (headX < 0) {
     headX = numOfBlocks;
   }
+  // If headX is far right, move it to the far left.
   if (headX > numOfBlocks) {
     headX = 0;
   }
+  // If headY is far up, move it to the bottom.
   if (headY < 0) {
     headY = numOfBlocks;
   }
+  // If headY is far below, move it to the top.
   if (headY > numOfBlocks) {
     headY = 0;
   }
